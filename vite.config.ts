@@ -7,6 +7,10 @@ import { defineConfig } from 'vite';
 export default defineConfig({
   base: '/',
   build: {
+    sourcemap: false,
+    cssCodeSplit: true,
+    chunkSizeWarningLimit: 2000,
+
     rollupOptions: {
       input: {
         index: 'index.html',
