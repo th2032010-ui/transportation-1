@@ -11,6 +11,7 @@ export default defineConfig({
       input: {
         index: 'index.html',
         iphoneDuo: 'iphone-duo.html',
+        esphereOne: 'esphere-one.html',
       },
     },
   },

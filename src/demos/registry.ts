@@ -5,6 +5,7 @@ export interface DemoMetadata {
   /** route id, e.g. 'crown-chest' */
   id: string;
   title: string;
+  category?: string;
   subjectClass: 'object' | 'character';
   /** 1-2 sentences */
   blurb: string;
@@ -122,6 +123,59 @@ const BASE = import.meta.env.BASE_URL;
 const REPO = 'https://github.com/img2threejs/img2threejs-showcase/blob/main';
 
 const authored: CatalogEntry[] = [
+  {
+    id: 'e-sphere-rail',
+    updatedAt: '2026-10-08',
+    title: 'E-Sphere Rail X',
+    category: 'transportation',
+    subjectClass: 'object',
+    blurb:
+      'The flagship autonomous transportation system for futuristic smart cities (Year 2055): 70.2-meter Next-Gen AI Superconducting Maglev (SCMaglev) with '
+      + 'refined aerodynamic nose profile, 35% reduced bulb volume, gentle aerodynamic point with soft rounded edges, expansive seamless smart-glass windshield, '
+      + 'aerospace Titanium Gray body, hidden capacitive doors, LiDAR & radar arrays, AR smart glass, animated blue energy ribbons, and visible magnetic field effects floating 12cm at 650 km/h.',
+    referenceImage: `${BASE}references/e-sphere-rail.png`,
+    referenceKind: 'image',
+    sourcePath: 'src/demos/e-sphere-rail/createESphereRailModel.ts',
+    sourceUrl: `${REPO}/src/demos/e-sphere-rail/createESphereRailModel.ts`,
+    generatedWith: 'img2threejs v2.0.0 · procedural code reconstruction · PBR materials · animation-ready',
+    prompt:
+      'Refine E-Sphere Rail X nose shape: reduce front bulb volume by 35%, extend nose forward by 15% (7.30m), create a gentle aerodynamic point '
+      + 'with soft rounded edges (neither too sharp nor too round), maintain smooth continuous curvature, larger seamlessly blended smart-glass windshield, '
+      + 'and deliver an elegant, aerodynamic, premium, futuristic maglev front.',
+    author: 'Hoài Nhớ',
+    authorUrl: 'https://github.com/hoainho',
+    status: 'final',
+    cameraPosition: [8.0, 2.7, 9.0],
+    cameraTarget: [0, 0.5, 0],
+    cameraFov: 35,
+    cameraOrbit: {
+      minPolarAngle: 0.1,
+      maxPolarAngle: 1.5,
+      minDistance: 3,
+      maxDistance: 45,
+    },
+    turntable: true,
+    accent: '#0077fe',
+    backgroundGradient: { inner: '#0b1b30', outer: '#030812' },
+    exposure: 1.1,
+    environmentIntensity: 1.0,
+    toneMapping: 'aces',
+    loadRuntime: async () => {
+      const { createESphereRailModel, createESphereRailLookDevLights } = await import(
+        './e-sphere-rail/createESphereRailModel'
+      );
+      return {
+        installLights: (scene) => {
+          scene.add(createESphereRailLookDevLights());
+        },
+        build: (scene) => {
+          const group = createESphereRailModel({ castShadow: true, receiveShadow: true });
+          scene.add(group);
+          return group;
+        },
+      };
+    },
+  },
   {
     id: 'snowy-village',
     updatedAt: '2026-09-28',

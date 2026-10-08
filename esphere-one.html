@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>E-Sphere One — Autonomous City Vehicle 2045</title>
+    <link rel="stylesheet" href="/src/esphere-one/styles.css" />
+  </head>
+  <body>
+    <!-- 3D Canvas Viewport -->
+    <div id="viewport-container"></div>
+
+    <!-- Top Status Bar -->
+    <header class="top-bar">
+      <div class="brand-badge">
+        <div class="brand-icon">
+          <svg viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="9" stroke="white" stroke-width="2" fill="none" />
+            <circle cx="12" cy="12" r="4" fill="white" />
+          </svg>
+        </div>
+        <div class="brand-title">
+          <h1>E-Sphere One</h1>
+          <p>Autonomous Concept · 2045 Mobility</p>
+        </div>
+      </div>
+
+      <div class="status-pills">
+        <div class="pill">L: 4.2m · W: 2.0m · H: 1.8m</div>
+        <div class="pill highlight">Active Aero · LiDAR L5</div>
+        <a href="./#/" class="pill" style="text-decoration:none; color:inherit;">← Gallery</a>
+      </div>
+    </header>
+
+    <!-- Left Context Card -->
+    <aside class="view-desc-card">
+      <h3 id="current-view-title">Perspective View</h3>
+      <p id="current-view-desc">
+        Smooth capsule silhouette with rounded front and rear (+15% volume boost), high-gloss metallic silver paint (#D8DCE3), and panoramic glass canopy.
+      </p>
+    </aside>
+
+    <!-- Bottom Camera Navigation (Preset 1..6 Required Views) -->
+    <nav class="bottom-bar">
+      <div class="view-indicator">
+        <span class="pulse-dot"></span>
+        <span>Studio Camera Angle</span>
+      </div>
+      <div class="view-tabs">
+        <button class="view-tab" data-view="front">
+          <span>Front</span>
+          <span class="key-hint">1</span>
+        </button>
+        <button class="view-tab" data-view="rear">
+          <span>Rear</span>
+          <span class="key-hint">2</span>
+        </button>
+        <button class="view-tab" data-view="left">
+          <span>Left Side</span>
+          <span class="key-hint">3</span>
+        </button>
+        <button class="view-tab" data-view="right">
+          <span>Right Side</span>
+          <span class="key-hint">4</span>
+        </button>
+        <button class="view-tab" data-view="top">
+          <span>Top</span>
+          <span class="key-hint">5</span>
+        </button>
+        <button class="view-tab active" data-view="perspective">
+          <span>Perspective</span>
+          <span class="key-hint">6</span>
+        </button>
+        <button class="view-tab" data-view="interior">
+          <span>Cabin</span>
+          <span class="key-hint">7</span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Right Control & Specs Panel -->
+    <aside class="side-panel">
+      <div class="panel-header">
+        <h2>Specifications</h2>
+      </div>
+
+      <div class="spec-grid">
+        <div class="spec-item">
+          <div class="spec-label">Silhouette</div>
+          <div class="spec-value">Capsule Pod</div>
+        </div>
+        <div class="spec-item">
+          <div class="spec-label">Body Volume</div>
+          <div class="spec-value">+15% Front/Rear</div>
+        </div>
+        <div class="spec-item">
+          <div class="spec-label">Body Paint</div>
+          <div class="spec-value">Silver #D8DCE3</div>
+        </div>
+        <div class="spec-item">
+          <div class="spec-label">LED Lighting</div>
+          <div class="spec-value">Cyan #00EAFF</div>
+        </div>
+      </div>
+
+      <!-- Paint Finish Selector -->
+      <div class="slider-group">
+        <div class="slider-header">
+          <span>Metallic Paint Finish</span>
+        </div>
+        <div class="swatch-group">
+          <div class="color-swatch selected" data-color="d8dce3" style="background:#d8dce3;" title="Metallic Silver (Current Default)"></div>
+          <div class="color-swatch" data-color="3b82f6" style="background:#3b82f6;" title="Royal Blue"></div>
+          <div class="color-swatch" data-color="1e40af" style="background:#1e40af;" title="Deep Navy"></div>
+          <div class="color-swatch" data-color="f0f3f7" style="background:#f0f3f7;" title="Apple Pure White"></div>
+        </div>
+      </div>
+
+      <div class="panel-header">
+        <h2>Interactive Studio</h2>
+      </div>
+
+      <div class="action-buttons">
+        <button class="action-btn" id="btn-aero">
+          <span>Active Aero Surfaces</span>
+          <span class="btn-state" id="aero-state">Cruising (Aero)</span>
+        </button>
+
+        <button class="action-btn" id="btn-turntable">
+          <span>360° Turntable Mode</span>
+          <span class="btn-state">Space</span>
+        </button>
+
+        <button class="action-btn" id="btn-night">
+          <span>Studio Lighting Theme</span>
+          <span class="btn-state">Light / Cyber</span>
+        </button>
+
+        <button class="action-btn" id="btn-canopy">
+          <span>Glass Canopy Lift</span>
+          <span class="btn-state">Open / Close</span>
+        </button>
+
+        <button class="action-btn active" id="btn-underglow">
+          <span>Cyan Ground Underglow</span>
+          <span class="btn-state">Active</span>
+        </button>
+
+        <button class="action-btn" id="btn-snapshot" style="background:#0077b6; color:#fff; border:none;">
+          <span>Capture Render (PNG)</span>
+          <span class="btn-state" style="color:rgba(255,255,255,0.7)">High-Res</span>
+        </button>
+      </div>
+
+      <div class="slider-group">
+        <div class="slider-header">
+          <span>Cyan LED Intensity</span>
+        </div>
+        <input type="range" id="slider-led" min="1.0" max="6.0" step="0.2" value="3.8" />
+      </div>
+
+      <div class="slider-group">
+        <div class="slider-header">
+          <span>Ambient Interior Glow</span>
+        </div>
+        <input type="range" id="slider-ambient" min="0.5" max="5.0" step="0.2" value="2.8" />
+      </div>
+    </aside>
+
+    <script type="module" src="/src/esphere-one/main.ts"></script>
+  </body>
+</html>
