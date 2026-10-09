@@ -9,6 +9,7 @@ export default defineConfig({
   build: {
     sourcemap: false,
     cssCodeSplit: true,
+    cssMinify: false,
     chunkSizeWarningLimit: 2000,
 
     rollupOptions: {
